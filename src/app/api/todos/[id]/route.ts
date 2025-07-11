@@ -4,7 +4,7 @@ import pool from '@/lib/db';
 // 更新待办事项
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     if (!pool) {
@@ -12,7 +12,7 @@ export async function PUT(
     }
 
     const { text, completed } = await request.json();
-    const { id } = params;
+    const { id } = await params;
 
     const client = await pool.connect();
     
@@ -53,14 +53,14 @@ export async function PUT(
 // 删除待办事项
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     if (!pool) {
       return NextResponse.json({ error: '数据库连接不可用' }, { status: 500 });
     }
 
-    const { id } = params;
+    const { id } = await params;
     const client = await pool.connect();
     
     const result = await client.query(

@@ -3,9 +3,9 @@ import TodoItem, { Todo } from "./TodoItem";
 
 interface TodoListProps {
   todos: Todo[];
-  onToggle: (id: number) => void;
-  onDelete: (id: number) => void;
-  onEdit: (id: number, newText: string) => void;
+  onToggle: (id: string) => void;
+  onDelete: (id: string) => void;
+  onEdit: (id: string, newText: string) => void;
 }
 
 const TodoList: React.FC<TodoListProps> = ({ todos, onToggle, onDelete, onEdit }) => {
